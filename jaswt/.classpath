@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_201_x64"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="ext/swt/swt_linux_gtk_x64.jar"/>
+	<classpathentry kind="lib" path="ext/utils/jutilas-1.0.jar"/>
+	<classpathentry kind="lib" path="ext/utils/jogger-1.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
