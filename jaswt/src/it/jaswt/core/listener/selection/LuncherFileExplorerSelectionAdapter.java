@@ -23,7 +23,7 @@ public class LuncherFileExplorerSelectionAdapter extends SelectionAdapter {
 	@Override
 	public void widgetSelected(SelectionEvent se) {
 		try {
-			Jutilas.getInstance().openFileExplore(path);
+			Jutilas.getInstance().openFileExplorer(path);
 		} catch (IOException e) {
 			Jaswt.getInstance().lunchMBError(shellParent, e, nameProgramm);
 		}

@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Text;
 
 import it.jogger.core.JoggerError;
 import it.jogger.exception.FileLogException;
+import it.jogger.exception.LockLogException;
 import it.jutilas.core.JutilasSys;
 
 public class Jaswt {
@@ -51,10 +52,10 @@ public class Jaswt {
 	public void lunchMBError(Shell parent, Exception exception, String nameLog) {
 		lunchMB(parent, SWT.OK, "FAIL!!!", "Errore!!!Messaggio: " + exception.getMessage());
 		try {
-			JoggerError.getInstance().writeLog(exception, nameLog, null);
-		} catch (FileLogException e) {
+			JoggerError.writeLog(exception, nameLog);
+		} catch (FileLogException | LockLogException e) {
 			lunchMB(parent, SWT.OK, "FAIL!!!", "Errore!!! Errore durante la scrittura del file log.\n"
-					+ "Controllare la cartella dei log su " + JoggerError.getInstance().getLogDirPath() + ".\n"
+					+ "Controllare la cartella dei log su " + JoggerError.getLogDirPath() + ".\n"
 					+ "Messaggio errore: " + e.getMessage());
 		}
 	}

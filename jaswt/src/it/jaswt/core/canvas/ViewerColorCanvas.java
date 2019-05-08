@@ -12,16 +12,17 @@ public class ViewerColorCanvas extends Canvas {
 	private int green = 0;
 	private int blue = 0;
 
-	@Override  
+	@Override
+	/* override checksubclass per evitare errore */
 	protected void checkSubclass() {
 	}
-	
+
+	/* costruttori */
 	public ViewerColorCanvas(Composite parent, int style) {
 		super(parent, style);
 		setRedraw(true);
 		setBackground(getColorSet());
 	}
-
 	public ViewerColorCanvas(Composite parent, int style, int red, int green, int blue) throws ParameterException {
 		super(parent, style);
 		if (red > 255 || green > 255 || blue > 255)
@@ -60,11 +61,13 @@ public class ViewerColorCanvas extends Canvas {
 	}
 
 	@Override
+	/* override redraw */
 	public void redraw() {
 		setBackground(getColorSet());
 		super.redraw();
 	}
-	
+
+	/* get colo set on rgb attribute */
 	private Color getColorSet() {
 		return new Color(getShell().getDisplay(), new RGB(red, green, blue));
 	}
