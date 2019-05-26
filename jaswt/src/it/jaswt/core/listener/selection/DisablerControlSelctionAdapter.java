@@ -14,7 +14,7 @@ public class DisablerControlSelctionAdapter extends SelectionAdapter {
 		super();
 		this.controlList = control;
 	}
-	
+
 	public ArrayList<Control> getControlList() {
 		return controlList;
 	}
