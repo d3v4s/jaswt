@@ -1,7 +1,6 @@
 package it.jaswt.core.listener.selection;
 
-import java.io.IOException;
-
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
@@ -12,20 +11,19 @@ import it.jutilas.core.Jutilas;
 public class LuncherFileExplorerSelectionAdapter extends SelectionAdapter {
 	private Shell shellParent;
 	private String path;
-	private String nameProgramm;
 
-	public LuncherFileExplorerSelectionAdapter(Shell shellParent, String path, String nameProgramm) {
+	public LuncherFileExplorerSelectionAdapter(Shell shellParent, String path) {
 		this.shellParent = shellParent;
 		this.path = path;
-		this.nameProgramm = nameProgramm;
 	}
 
 	@Override
 	public void widgetSelected(SelectionEvent se) {
 		try {
 			Jutilas.getInstance().openFileExplorer(path);
-		} catch (IOException e) {
-			Jaswt.getInstance().lunchMBError(shellParent, e, nameProgramm);
+		} catch (Exception e) {
+//			throw new RuntimeException("Errore durante l'apertura del file explorer!!!");
+			Jaswt.getInstance().lunchMB(shellParent, SWT.OK, "FAIL!!!", "Errore!!!Messaggio: " + e.getMessage());
 		}
 	}
 }
