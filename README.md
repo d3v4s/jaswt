@@ -1,4 +1,4 @@
 # Jaswt
 Utils for swt library Java
 
-Libreria per lo sviluppo di software utilizzando la libreria grafica SWT di Eclipse.
+Libreria utile per lo sviluppo di software Java utilizzando la libreria grafica SWT di Eclipse.
