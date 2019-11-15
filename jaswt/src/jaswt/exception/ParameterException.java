@@ -1,5 +1,10 @@
-package it.jaswt.exception;
+package jaswt.exception;
 
+/**
+ * Class fo parameter exception
+ * @author Andrea Serra
+ *
+ */
 public class ParameterException extends Exception {
 	private static final long serialVersionUID = 5205976289904803887L;
 
