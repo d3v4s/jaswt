@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>jaswt</name>
-			<type>2</type>
-			<location>/home/hxs/Workspaces/git-work/jaswt</location>
-		</link>
-	</linkedResources>
 </projectDescription>
