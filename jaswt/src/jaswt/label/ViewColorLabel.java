@@ -41,7 +41,7 @@ public class ViewColorLabel extends Label {
 	 */
 	public ViewColorLabel(Composite parent, int style, int red, int green, int blue) throws ParameterException {
 		super(parent, style);
-		if (red > 255 || green > 255 || blue > 255) throw new ParameterException("Error!!! The number of the amount of color may not be greater than 255");
+		if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
 		setRedraw(true);
 		this.red = red;
 		this.green = green;
@@ -61,21 +61,21 @@ public class ViewColorLabel extends Label {
 		return red;
 	}
 	public void setRed(int red) throws ParameterException {
-		if (red > 255) throw new ParameterException("Error!!! The number of the amount of color may not be greater than 255");
+		if (red < 0 || red > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
 		this.red = red;
 	}
 	public int getGreen() {
 		return green;
 	}
 	public void setGreen(int green) throws ParameterException {
-		if (green > 255) throw new ParameterException("Error!!! The number of the amount of color may not be greater than 255");
+		if (green < 0 || green > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
 		this.green = green;
 	}
 	public int getBlue() {
 		return blue;
 	}
 	public void setBlue(int blue) throws ParameterException {
-		if (blue > 255) throw new ParameterException("Error!!! The number of the amount of color may not be greater than 255");
+		if (blue < 0 || blue > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
 		this.blue = blue;
 	}
 
