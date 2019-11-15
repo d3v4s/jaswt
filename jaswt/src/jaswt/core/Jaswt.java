@@ -33,8 +33,7 @@ public class Jaswt {
 
 	/* SINGLETON */
 	public static Jaswt getInstance() {
-		utilsViewAS = (utilsViewAS == null) ? new Jaswt() : utilsViewAS;
-		return utilsViewAS;
+		return utilsViewAS = (utilsViewAS == null) ? new Jaswt() : utilsViewAS;
 	}
 
 	/* metodo che lancia message box */
