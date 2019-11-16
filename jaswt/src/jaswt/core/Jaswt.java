@@ -91,8 +91,7 @@ public class Jaswt {
 		try {
 			joggerError.writeLog(exception);
 		} catch (Exception e) {
-			launchMB(parent, SWT.OK, "FAIL!!!",
-					"Error!!! Error while writing the log file.\nError message: " + e.getMessage());
+			launchMB(parent, SWT.OK, "FAIL!!!", "Error!!! Error while writing the log file.\nError message: " + e.getMessage());
 		}
 	}
 
@@ -106,8 +105,7 @@ public class Jaswt {
 	 */
 	public String launchDirectoryDialog(Shell shell, String pathStart) {
 		DirectoryDialog dirDialog = new DirectoryDialog(shell, SWT.NONE);
-		pathStart = !(pathStart == null || pathStart.trim().isEmpty()) ? pathStart
-				: JutilasSys.getInstance().getPathUsrHome();
+		pathStart = !(pathStart == null || pathStart.trim().isEmpty()) ? pathStart : JutilasSys.getInstance().getPathUsrHome();
 		dirDialog.setFilterPath(pathStart);
 		return dirDialog.open();
 	}
@@ -122,10 +120,34 @@ public class Jaswt {
 	 */
 	public String launchFileDialog(Shell shell, String pathStart) {
 		FileDialog fileDialog = new FileDialog(shell, SWT.NONE);
-		pathStart = !(pathStart == null || pathStart.trim().isEmpty()) ? pathStart
-				: JutilasSys.getInstance().getPathUsrHome();
+		pathStart = !(pathStart == null || pathStart.trim().isEmpty()) ? pathStart : JutilasSys.getInstance().getPathUsrHome();
 		fileDialog.setFilterPath(pathStart);
 		return fileDialog.open();
+	}
+
+	/**
+	 * method that create labels horizontally on the composite
+	 * 
+	 * @param namesLabel      list
+	 * @param x               coordinate on the shell
+	 * @param y               coordinate on the shell
+	 * @param width           of label
+	 * @param height          of label
+	 * @param space           between two labels
+	 * @param compositeParent parent
+	 * @param style           label
+	 */
+	public void printLabelHorizontal(String[] namesLabel, int x, int y, int width, int height, int space, Composite compositeParent, int style) {
+		CLabel lbl;
+		int ws = width + space;
+		int heightFont = height - 6;
+		/* ciclo per label */
+		for (int i = 0, length = namesLabel.length; i < length; i++) {
+			lbl = new CLabel(compositeParent, style);
+			lbl.getFont().getFontData()[0].setHeight(heightFont);
+			lbl.setBounds(x + ws * i, y, width, height);
+			lbl.setText(namesLabel[i]);
+		}
 	}
 
 	/* metodo che stampa label su shell in verticale */
@@ -141,8 +163,7 @@ public class Jaswt {
 	 * @param compositeParent parent
 	 * @param style           label
 	 */
-	public void printLabelVertical(String[] namesLabel, int x, int y, int width, int height, int space,
-			Composite compositeParent, int style) {
+	public void printLabelVertical(String[] namesLabel, int x, int y, int width, int height, int space, Composite compositeParent, int style) {
 		CLabel lbl;
 		int hs = height + space;
 		int heightFont = height - 6;
@@ -155,10 +176,8 @@ public class Jaswt {
 		}
 	}
 
-	/* metodo che stampa text su shell in verticale e gli inserisce sulla mappa */
 	/**
-	 * method that create text inputs vertically on the composite and insert them in
-	 * the map
+	 * method that create text inputs horizontally on the composite and insert them in the map
 	 * 
 	 * @param x               coordinate on the composite
 	 * @param y               coordinate on the shell
@@ -170,8 +189,37 @@ public class Jaswt {
 	 * @param mapSaveText     map where save the text inputs
 	 * @param disableTextList list of text inputs indexes to be disabled
 	 */
-	public void printTextVertical(int x, int y, int[] width, int height, int space, Composite compositeParent,
-			String[] keyMapList, HashMap<String, Text> mapSaveText, int[] disableTextList) {
+	public void printTextHorizontal(int x, int y, int[] width, int height, int space, Composite compositeParent, String[] keyMapList, HashMap<String, Text> mapSaveText, int[] disableTextList) {
+		Text txt;
+		int ws;
+		int heightFont = height - 6;
+		/* ciclo per aree di testo */
+		for (int i = 0, length = keyMapList.length; i < length; i++) {
+			txt = new Text(compositeParent, SWT.NONE);
+			txt.getFont().getFontData()[0].setHeight(heightFont);
+			ws = width[i] + space;
+			txt.setBounds(x + ws * i, y, width[i], height);
+			if (i == 0) txt.forceFocus();
+			for (int j : disableTextList) if (i == j) txt.setEnabled(false);
+			mapSaveText.put(keyMapList[i], txt);
+		}
+	}
+
+	/* metodo che stampa text su shell in verticale e gli inserisce sulla mappa */
+	/**
+	 * method that create text inputs vertically on the composite and insert them in the map
+	 * 
+	 * @param x               coordinate on the composite
+	 * @param y               coordinate on the shell
+	 * @param width           of text input
+	 * @param height          of text input
+	 * @param space           between two text inputs
+	 * @param compositeParent parent
+	 * @param keyMapList      list of key to be used on map
+	 * @param mapSaveText     map where save the text inputs
+	 * @param disableTextList list of text inputs indexes to be disabled
+	 */
+	public void printTextVertical(int x, int y, int[] width, int height, int space, Composite compositeParent, String[] keyMapList, HashMap<String, Text> mapSaveText, int[] disableTextList) {
 		Text txt;
 		int hs = height + space;
 		int heightFont = height - 6;
@@ -180,11 +228,8 @@ public class Jaswt {
 			txt = new Text(compositeParent, SWT.NONE);
 			txt.getFont().getFontData()[0].setHeight(heightFont);
 			txt.setBounds(x, y + hs * i, width[i], height);
-			if (i == 0)
-				txt.forceFocus();
-			for (int j : disableTextList)
-				if (i == j)
-					txt.setEnabled(false);
+			if (i == 0) txt.forceFocus();
+			for (int j : disableTextList) if (i == j) txt.setEnabled(false);
 			mapSaveText.put(keyMapList[i], txt);
 		}
 	}
@@ -201,18 +246,40 @@ public class Jaswt {
 	 * @param compositeParent    parent
 	 * @param selectListenerList list of SelectionListener for buttons
 	 */
-	public void printButtonHorizontal(String[] namesList, int x, int y, int width, int height, int space,
-			Composite compositeParent, SelectionListener[] selectListenerList) {
+	public void printButtonHorizontal(String[] namesList, int x, int y, int width, int height, int space, Composite compositeParent, SelectionListener[] selectListenerList) {
 		Button bttn;
 		int ws = width + space;
 		/* ciclo per button */
 		for (int i = 0, length = namesList.length; i < length; i++) {
 			bttn = new Button(compositeParent, SWT.PUSH);
 			bttn.setBounds(x + ws * i, y, width, height);
-			if (selectListenerList[i] != null)
-				bttn.addSelectionListener(selectListenerList[i]);
-			if (namesList[i] != null)
-				bttn.setText(namesList[i]);
+			if (selectListenerList[i] != null) bttn.addSelectionListener(selectListenerList[i]);
+			if (namesList[i] != null) bttn.setText(namesList[i]);
+			bttn.setCursor(new Cursor(compositeParent.getDisplay(), SWT.CURSOR_HAND));
+		}
+	}
+
+	/**
+	 * method that create button vertically on the composite
+	 * 
+	 * @param namesList          of buttons
+	 * @param x                  coordinate on the composite
+	 * @param y                  coordinate on the composite
+	 * @param width              of button
+	 * @param height             of button
+	 * @param space              between two buttons
+	 * @param compositeParent    parent
+	 * @param selectListenerList list of SelectionListener for buttons
+	 */
+	public void printButtonVertical(String[] namesList, int x, int y, int width, int height, int space, Composite compositeParent, SelectionListener[] selectListenerList) {
+		Button bttn;
+		/* loop for print button */
+		int hs = height + space;
+		for (int i = 0, length = namesList.length; i < length; i++) {
+			bttn = new Button(compositeParent, SWT.PUSH);
+			bttn.setBounds(x, y + hs * i, width, height);
+			if (selectListenerList[i] != null) bttn.addSelectionListener(selectListenerList[i]);
+			if (namesList[i] != null) bttn.setText(namesList[i]);
 			bttn.setCursor(new Cursor(compositeParent.getDisplay(), SWT.CURSOR_HAND));
 		}
 	}
