@@ -18,13 +18,20 @@ public class ViewColorLabel extends Label {
 	protected void checkSubclass() {
 	}
 
-	/* ################################################################################# */
+	/*
+	 * #############################################################################
+	 * ####
+	 */
 	/* START CONSTRUCTORS */
-	/* ################################################################################# */
+	/*
+	 * #############################################################################
+	 * ####
+	 */
 	/**
 	 * construct that set a composite parent and style
+	 * 
 	 * @param parent composite
-	 * @param style of label
+	 * @param style  of label
 	 */
 	public ViewColorLabel(Composite parent, int style) {
 		super(parent, style);
@@ -32,16 +39,18 @@ public class ViewColorLabel extends Label {
 
 	/**
 	 * construct that set a composite parent, style and RGB
+	 * 
 	 * @param parent composite
-	 * @param style of label
-	 * @param red of RGB
-	 * @param green of RGB
-	 * @param blue of RGB
+	 * @param style  of label
+	 * @param red    of RGB
+	 * @param green  of RGB
+	 * @param blue   of RGB
 	 * @throws ParameterException
 	 */
 	public ViewColorLabel(Composite parent, int style, int red, int green, int blue) throws ParameterException {
 		super(parent, style);
-		if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
+		if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255)
+			throw new ParameterException("Error!!! The number must be a value between 0 and 255");
 		setRedraw(true);
 		this.red = red;
 		this.green = green;
@@ -49,39 +58,65 @@ public class ViewColorLabel extends Label {
 		setBackground(getColorSet());
 	}
 
-	/* ################################################################################# */
+	/*
+	 * #############################################################################
+	 * ####
+	 */
 	/* END CONSTRUCTORS */
-	/* ################################################################################# */
+	/*
+	 * #############################################################################
+	 * ####
+	 */
 
-	/* ################################################################################# */
+	/*
+	 * #############################################################################
+	 * ####
+	 */
 	/* START GET AND SET */
-	/* ################################################################################# */
+	/*
+	 * #############################################################################
+	 * ####
+	 */
 
 	public int getRed() {
 		return red;
 	}
+
 	public void setRed(int red) throws ParameterException {
-		if (red < 0 || red > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
+		if (red < 0 || red > 255)
+			throw new ParameterException("Error!!! The number must be a value between 0 and 255");
 		this.red = red;
 	}
+
 	public int getGreen() {
 		return green;
 	}
+
 	public void setGreen(int green) throws ParameterException {
-		if (green < 0 || green > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
+		if (green < 0 || green > 255)
+			throw new ParameterException("Error!!! The number must be a value between 0 and 255");
 		this.green = green;
 	}
+
 	public int getBlue() {
 		return blue;
 	}
+
 	public void setBlue(int blue) throws ParameterException {
-		if (blue < 0 || blue > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
+		if (blue < 0 || blue > 255)
+			throw new ParameterException("Error!!! The number must be a value between 0 and 255");
 		this.blue = blue;
 	}
 
-	/* ################################################################################# */
+	/*
+	 * #############################################################################
+	 * ####
+	 */
 	/* END GET AND SET */
-	/* ################################################################################# */
+	/*
+	 * #############################################################################
+	 * ####
+	 */
 
 	/* override redraw */
 	@Override

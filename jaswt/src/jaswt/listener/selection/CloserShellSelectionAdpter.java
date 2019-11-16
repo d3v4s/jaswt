@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Class that extends SelectionAdapter for close shell
+ * 
  * @author Andrea Serra
  *
  */
@@ -15,6 +16,7 @@ public class CloserShellSelectionAdpter extends SelectionAdapter {
 	/* CONSTRUCTOR */
 	/**
 	 * constructor that set the shell to be close
+	 * 
 	 * @param shell to be closed
 	 */
 	public CloserShellSelectionAdpter(Shell shell) {

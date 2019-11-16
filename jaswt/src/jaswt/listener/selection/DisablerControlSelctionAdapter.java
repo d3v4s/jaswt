@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Class that extends SelectionAdapter for disable a Control list
+ * 
  * @author Andrea Serra
  *
  */
@@ -18,7 +19,8 @@ public class DisablerControlSelctionAdapter extends SelectionAdapter {
 	/* CONSTRUCTOR */
 	/**
 	 * constructor that set the ArrayList of Controls to be closed
-	 * @param controls list to be closed 
+	 * 
+	 * @param controls list to be closed
 	 */
 	public DisablerControlSelctionAdapter(ArrayList<Control> controls) {
 		super();
@@ -33,6 +35,7 @@ public class DisablerControlSelctionAdapter extends SelectionAdapter {
 	@Override
 	public void widgetSelected(SelectionEvent se) {
 		Button chckBttn = (Button) se.widget;
-		for (Control control : controlList) control.setEnabled(chckBttn.getSelection());
+		for (Control control : controlList)
+			control.setEnabled(chckBttn.getSelection());
 	}
 }

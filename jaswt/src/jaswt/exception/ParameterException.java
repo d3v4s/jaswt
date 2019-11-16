@@ -2,6 +2,7 @@ package jaswt.exception;
 
 /**
  * Class fo parameter exception
+ * 
  * @author Andrea Serra
  *
  */
