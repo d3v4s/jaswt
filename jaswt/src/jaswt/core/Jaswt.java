@@ -76,6 +76,7 @@ public class Jaswt {
 	 */
 	public void launchMBError(Shell parent, Exception exception) {
 		launchMB(parent, SWT.OK, "FAIL!!!", "Error!!! Messagge: " + exception.getMessage());
+		exception.printStackTrace();
 	}
 
 	/* metodo che lancia messaggio di errore e scrive log */
@@ -88,10 +89,12 @@ public class Jaswt {
 	 */
 	public void launchMBError(Shell parent, Exception exception, JoggerError joggerError) {
 		launchMBError(parent, exception);
+		exception.printStackTrace();
 		try {
 			joggerError.writeLog(exception);
 		} catch (Exception e) {
 			launchMB(parent, SWT.OK, "FAIL!!!", "Error!!! Error while writing the log file.\nError message: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
