@@ -8,11 +8,11 @@ import org.eclipse.swt.widgets.Text;
 import jaswt.core.Jaswt;
 
 /**
- * Class that extends SelectionAdapter for launch a window to select a folder and set it in Text
+ * Class that extends SelectionAdapter for launch a window to select a file and set it in Text
  * @author Andrea Serra
  *
  */
-public class LauncherSelectPathSelectionAdapter extends SelectionAdapter {
+public class LauncherSelectFileSelectionAdapter extends SelectionAdapter {
 	private Shell shell;
 	private Text text;
 
@@ -23,7 +23,7 @@ public class LauncherSelectPathSelectionAdapter extends SelectionAdapter {
 	 * @param shell parent
 	 * @param text  where write a path
 	 */
-	public LauncherSelectPathSelectionAdapter(Shell shell, Text text) {
+	public LauncherSelectFileSelectionAdapter(Shell shell, Text text) {
 		super();
 		this.shell = shell;
 		this.text = text;
@@ -31,7 +31,7 @@ public class LauncherSelectPathSelectionAdapter extends SelectionAdapter {
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		String path = Jaswt.getInstance().launchDirectoryDialog(shell, text.getText());
+		String path = Jaswt.getInstance().launchFileDialog(shell, text.getText());
 		if (!(path == null || path.isEmpty())) text.setText(path);
 	}
 }
