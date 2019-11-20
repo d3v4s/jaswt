@@ -14,7 +14,7 @@ import jutilas.core.Jutilas;
  * @author Andrea Serra
  *
  */
-public class LauncherFileExplorerSelectionAdapter extends SelectionAdapter {
+public class OpenFileFromOSSelectionAdapter extends SelectionAdapter {
 	private Shell shellParent;
 	private String path;
 
@@ -25,7 +25,7 @@ public class LauncherFileExplorerSelectionAdapter extends SelectionAdapter {
 	 * @param shellParent
 	 * @param path        to be open on file explorer
 	 */
-	public LauncherFileExplorerSelectionAdapter(Shell shellParent, String path) {
+	public OpenFileFromOSSelectionAdapter(Shell shellParent, String path) {
 		this.shellParent = shellParent;
 		this.path = path;
 	}
@@ -33,7 +33,7 @@ public class LauncherFileExplorerSelectionAdapter extends SelectionAdapter {
 	@Override
 	public void widgetSelected(SelectionEvent se) {
 		try {
-			Jutilas.getInstance().openFileExplorer(path);
+			Jutilas.getInstance().openFileFromOS(path);
 		} catch (Exception e) {
 //			throw new RuntimeException("Errore durante l'apertura del file explorer!!!");
 			Jaswt.getInstance().launchMB(shellParent, SWT.OK, "FAIL!!!", "Error!!! Messagge: " + e.getMessage());
