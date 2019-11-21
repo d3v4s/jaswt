@@ -24,20 +24,14 @@ public class CPUMonitorCanvas extends Canvas {
 	private int styleCPUMon = 0;
 
 	/* override checksubclass per evitare errore */
-	/* override for bypass error */
+	/* override for bypass checksubclass error */
 	@Override
 	protected void checkSubclass() {
 	}
 
-	/*
-	 * #############################################################################
-	 * ####
-	 */
+	/* ############################################################################# */
 	/* START CONSTRUCTORS */
-	/*
-	 * #############################################################################
-	 * ####
-	 */
+	/* ############################################################################# */
 
 	/**
 	 * Construct that set composite parent and style
@@ -63,25 +57,13 @@ public class CPUMonitorCanvas extends Canvas {
 		this.setBackground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
 	}
 
-	/*
-	 * #############################################################################
-	 * ####
-	 */
-	/* END CONSTRUCTORS */
-	/*
-	 * #############################################################################
-	 * ####
-	 */
+	/* ############################################################################# */
+	/* 	END CONSTRUCTORS */
+	/* ############################################################################# */
 
-	/*
-	 * #############################################################################
-	 * ####
-	 */
+	/* ############################################################################# */
 	/* START GET AND SET */
-	/*
-	 * #############################################################################
-	 * ####
-	 */
+	/* ############################################################################# */
 
 	public ArrayBlockingQueue<Double> getCpuUsageQueue() {
 		return cpuUsageQueue;
@@ -99,15 +81,9 @@ public class CPUMonitorCanvas extends Canvas {
 		this.styleCPUMon = styleCPUMon;
 	}
 
-	/*
-	 * #############################################################################
-	 * ####
-	 */
+	/* ############################################################################# */
 	/* END GET AND SET */
-	/*
-	 * #############################################################################
-	 * ####
-	 */
+	/* ############################################################################# */
 
 	/* paint listener per disegnare graffico */
 	/**
@@ -129,28 +105,21 @@ public class CPUMonitorCanvas extends Canvas {
 			for (int i = 0, size = ld.size(); i < size; i++) {
 				d = ld.get(i);
 				switch (styleCPUMon) {
-				case 1:
-					se.gc.setForeground((d < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN)
-							: (d < 80d) ? new Color(se.display, new RGB(255, 127, 80))
-									: se.display.getSystemColor(SWT.COLOR_RED));
-					se.gc.drawLine(posX, maxY, posX, maxY - (d.intValue() * maxYPerc));
-					break;
-				case 2:
-					se.gc.setForeground((d < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN)
-							: (d < 80d) ? new Color(se.display, new RGB(255, 127, 80))
-									: se.display.getSystemColor(SWT.COLOR_RED));
-					se.gc.drawLine(posX, 0, posX, maxY - (d.intValue() * maxYPerc));
-					break;
-				case 0:
-				default:
-					se.gc.setForeground(se.display.getSystemColor(SWT.COLOR_WHITE));
-					se.gc.drawLine(posX, maxY - (d.intValue() * maxYPerc), posX - 1,
-							maxY - (ld.get((i == size - 1) ? i : i + 1).intValue() * maxYPerc));
-					se.gc.setForeground((d < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN)
-							: (d < 80d) ? new Color(se.display, new RGB(255, 127, 80))
-									: se.display.getSystemColor(SWT.COLOR_RED));
-					se.gc.drawPoint(posX, maxY - (d.intValue() * maxYPerc));
-					break;
+					case 1:
+						se.gc.setForeground((d < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (d < 80d) ? new Color(se.display, new RGB(255, 127, 80)) : se.display.getSystemColor(SWT.COLOR_RED));
+						se.gc.drawLine(posX, maxY, posX, maxY - (d.intValue() * maxYPerc));
+						break;
+					case 2:
+						se.gc.setForeground((d < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (d < 80d) ? new Color(se.display, new RGB(255, 127, 80)) : se.display.getSystemColor(SWT.COLOR_RED));
+						se.gc.drawLine(posX, 0, posX, maxY - (d.intValue() * maxYPerc));
+						break;
+					case 0:
+					default:
+						se.gc.setForeground(se.display.getSystemColor(SWT.COLOR_WHITE));
+						se.gc.drawLine(posX, maxY - (d.intValue() * maxYPerc), posX - 1, maxY - (ld.get((i == size - 1) ? i : i + 1).intValue() * maxYPerc));
+						se.gc.setForeground((d < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (d < 80d) ? new Color(se.display, new RGB(255, 127, 80)) : se.display.getSystemColor(SWT.COLOR_RED));
+						se.gc.drawPoint(posX, maxY - (d.intValue() * maxYPerc));
+						break;
 				}
 				posX--;
 			}
