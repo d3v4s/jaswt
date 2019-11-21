@@ -19,7 +19,6 @@ public class LauncherSelectPathSelectionAdapter extends SelectionAdapter {
 	/* CONSTRUCT */
 	/**
 	 * construct that set the shell parent and Text
-	 * 
 	 * @param shell parent
 	 * @param text  where write a path
 	 */
