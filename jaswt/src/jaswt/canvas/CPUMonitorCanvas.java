@@ -23,7 +23,6 @@ public class CPUMonitorCanvas extends Canvas {
 	private ArrayBlockingQueue<Double> cpuUsageQueue;
 	private int styleCPUMon = 0;
 
-	/* override checksubclass per evitare errore */
 	/* override for bypass checksubclass error */
 	@Override
 	protected void checkSubclass() {
@@ -68,15 +67,12 @@ public class CPUMonitorCanvas extends Canvas {
 	public ArrayBlockingQueue<Double> getCpuUsageQueue() {
 		return cpuUsageQueue;
 	}
-
 	public void setCpuUsageQueue(ArrayBlockingQueue<Double> cpuUsage) {
 		this.cpuUsageQueue = cpuUsage;
 	}
-
 	public int getStyleCPUMon() {
 		return styleCPUMon;
 	}
-
 	public void setStyleCPUMon(int styleCPUMon) {
 		this.styleCPUMon = styleCPUMon;
 	}
@@ -88,37 +84,44 @@ public class CPUMonitorCanvas extends Canvas {
 	/* paint listener per disegnare graffico */
 	/**
 	 * Inner class listener for draw graphics
-	 * 
 	 * @author Andrea Serra
 	 *
 	 */
 	private class DrawerCpuUsagePaintListener implements PaintListener {
+		private final Color COLOR_ORANGE = new Color(getDisplay(), new RGB(255, 127, 80));
 		@Override
 		public void paintControl(PaintEvent se) {
 			int maxX = cpuMonitorCanvas.getSize().x;
 			int maxY = cpuMonitorCanvas.getSize().y;
 			ArrayList<Double> ld = new ArrayList<Double>(cpuUsageQueue);
 			Collections.reverse(ld);
-			Double d;
+			Double avrg;
 			int posX = maxX;
-			int maxYPerc = maxY / 100;
+			double maxYPerc = maxY/100.0;
 			for (int i = 0, size = ld.size(); i < size; i++) {
-				d = ld.get(i);
+				avrg = ld.get(i);
+				int avrgY = Double.valueOf(avrg* maxYPerc).intValue();
+				System.out.println("average: " + avrg.intValue());
+				System.out.println("maxY: " + maxY);
+				System.out.println("maxY perc: " + maxYPerc);
+				System.out.println("size: " + size);
+				System.out.println("style: " + styleCPUMon);
 				switch (styleCPUMon) {
 					case 1:
-						se.gc.setForeground((d < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (d < 80d) ? new Color(se.display, new RGB(255, 127, 80)) : se.display.getSystemColor(SWT.COLOR_RED));
-						se.gc.drawLine(posX, maxY, posX, maxY - (d.intValue() * maxYPerc));
+						se.gc.setForeground((avrg < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (avrg < 80d) ? COLOR_ORANGE : se.display.getSystemColor(SWT.COLOR_RED));
+						se.gc.drawLine(posX, 0, posX, maxY - avrgY);
 						break;
 					case 2:
-						se.gc.setForeground((d < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (d < 80d) ? new Color(se.display, new RGB(255, 127, 80)) : se.display.getSystemColor(SWT.COLOR_RED));
-						se.gc.drawLine(posX, 0, posX, maxY - (d.intValue() * maxYPerc));
+						se.gc.setForeground(se.display.getSystemColor(SWT.COLOR_WHITE));
+						int avrgYNext = Double.valueOf(ld.get((i == size - 1) ? i : i + 1).intValue() * maxYPerc).intValue();
+						se.gc.drawLine(posX, maxY - avrgY, posX - 1, maxY - avrgYNext);
+						se.gc.setForeground((avrg < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (avrg < 80d) ? COLOR_ORANGE : se.display.getSystemColor(SWT.COLOR_RED));
+						se.gc.drawPoint(posX, maxY - avrgY);
 						break;
 					case 0:
 					default:
-						se.gc.setForeground(se.display.getSystemColor(SWT.COLOR_WHITE));
-						se.gc.drawLine(posX, maxY - (d.intValue() * maxYPerc), posX - 1, maxY - (ld.get((i == size - 1) ? i : i + 1).intValue() * maxYPerc));
-						se.gc.setForeground((d < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (d < 80d) ? new Color(se.display, new RGB(255, 127, 80)) : se.display.getSystemColor(SWT.COLOR_RED));
-						se.gc.drawPoint(posX, maxY - (d.intValue() * maxYPerc));
+						se.gc.setForeground((avrg < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (avrg < 80d) ? COLOR_ORANGE : se.display.getSystemColor(SWT.COLOR_RED));
+						se.gc.drawLine(posX, maxY, posX, maxY - avrgY);
 						break;
 				}
 				posX--;
