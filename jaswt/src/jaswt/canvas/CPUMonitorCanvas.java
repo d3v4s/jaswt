@@ -93,34 +93,31 @@ public class CPUMonitorCanvas extends Canvas {
 		public void paintControl(PaintEvent se) {
 			int maxX = cpuMonitorCanvas.getSize().x;
 			int maxY = cpuMonitorCanvas.getSize().y;
-			ArrayList<Double> ld = new ArrayList<Double>(cpuUsageQueue);
-			Collections.reverse(ld);
+			ArrayList<Double> avrgList = new ArrayList<Double>(cpuUsageQueue);
+			Collections.reverse(avrgList);
 			Double avrg;
 			int posX = maxX;
 			double maxYPerc = maxY/100.0;
-			for (int i = 0, size = ld.size(); i < size; i++) {
-				avrg = ld.get(i);
-				int avrgY = Double.valueOf(avrg* maxYPerc).intValue();
-				System.out.println("average: " + avrg.intValue());
-				System.out.println("maxY: " + maxY);
-				System.out.println("maxY perc: " + maxYPerc);
-				System.out.println("size: " + size);
-				System.out.println("style: " + styleCPUMon);
+			for (int i = 0, size = avrgList.size(); i < size; i++) {
+				avrg = avrgList.get(i);
+				int avrgY = Double.valueOf(avrg * maxYPerc).intValue();
+				Color avrgColor = (avrg < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (avrg < 80d) ? COLOR_ORANGE : se.display.getSystemColor(SWT.COLOR_RED);
 				switch (styleCPUMon) {
 					case 1:
-						se.gc.setForeground((avrg < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (avrg < 80d) ? COLOR_ORANGE : se.display.getSystemColor(SWT.COLOR_RED));
+						se.gc.setForeground(avrgColor);
 						se.gc.drawLine(posX, 0, posX, maxY - avrgY);
 						break;
 					case 2:
+						int iNext = (i == size - 1) ? i : i + 1;
+						int avrgYNext = Double.valueOf(avrgList.get(iNext) * maxYPerc).intValue();
 						se.gc.setForeground(se.display.getSystemColor(SWT.COLOR_WHITE));
-						int avrgYNext = Double.valueOf(ld.get((i == size - 1) ? i : i + 1).intValue() * maxYPerc).intValue();
 						se.gc.drawLine(posX, maxY - avrgY, posX - 1, maxY - avrgYNext);
-						se.gc.setForeground((avrg < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (avrg < 80d) ? COLOR_ORANGE : se.display.getSystemColor(SWT.COLOR_RED));
+						se.gc.setForeground(avrgColor);
 						se.gc.drawPoint(posX, maxY - avrgY);
 						break;
 					case 0:
 					default:
-						se.gc.setForeground((avrg < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (avrg < 80d) ? COLOR_ORANGE : se.display.getSystemColor(SWT.COLOR_RED));
+						se.gc.setForeground(avrgColor);
 						se.gc.drawLine(posX, maxY, posX, maxY - avrgY);
 						break;
 				}
