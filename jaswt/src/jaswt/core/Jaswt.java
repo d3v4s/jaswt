@@ -62,8 +62,8 @@ public class Jaswt {
 	 */
 	public void centerWindow(Shell shell) {
 		Dimension dmnsn = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (int) ((dmnsn.getWidth() - shell.getSize().x) / 2);
-		int y = (int) ((dmnsn.getHeight() - shell.getSize().y) / 2);
+		int x = Double.valueOf((dmnsn.getWidth() - shell.getSize().x)/2).intValue();
+		int y = Double.valueOf((dmnsn.getHeight() - shell.getSize().y)/2).intValue();
 		shell.setLocation(x, y);
 	}
 
@@ -89,10 +89,10 @@ public class Jaswt {
 	 */
 	public void launchMBError(Shell parent, Exception exception, JoggerError joggerError) {
 		launchMBError(parent, exception);
-		exception.printStackTrace();
 		try {
 			joggerError.writeLog(exception);
 		} catch (Exception e) {
+			exception.printStackTrace();
 			launchMB(parent, SWT.OK, "FAIL!!!", "Error!!! Error while writing the log file.\nError message: " + e.getMessage());
 			e.printStackTrace();
 		}
