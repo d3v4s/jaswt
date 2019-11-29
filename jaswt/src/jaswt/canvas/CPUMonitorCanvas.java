@@ -27,7 +27,6 @@ public class CPUMonitorCanvas extends Canvas {
 	private CPUMonitorCanvas cpuMonitorCanvas = this;
 	private BlockingQueue<Double> cpuAverageQueue;
 	private CpuMonitorThread cpuMonitorThread;
-	private boolean automatic = false;
 	private boolean running = false;
 	private int styleCPUMon = 0;
 	private int timeout = 1500;
@@ -108,13 +107,6 @@ public class CPUMonitorCanvas extends Canvas {
 	public void setCpuAverageQueue(BlockingQueue<Double> cpuAverageQueue) {
 		this.cpuAverageQueue = cpuAverageQueue;
 	}
-	public boolean isAutomatic() {
-		return automatic;
-	}
-	public void setAutomatic(boolean automatic) {
-		this.automatic = automatic;
-		if (automatic && cpuAverageQueue == null) cpuAverageQueue = new ArrayBlockingQueue<Double>(this.getSize().x);
-	}
 	public int getStyleCPUMon() {
 		return styleCPUMon;
 	}
@@ -146,9 +138,9 @@ public class CPUMonitorCanvas extends Canvas {
 	 * method that start the thread to draw graphics
 	 * @throws JaswtException
 	 */
-	public void start() throws JaswtException {
-		if (!automatic) throw new JaswtException("Automatic mode not setted");
+	public void start() {
 		if (running) return;
+		if (cpuAverageQueue == null) cpuAverageQueue = new ArrayBlockingQueue<Double>(this.getSize().x);
 		cpuMonitorThread = new CpuMonitorThread();
 		cpuMonitorThread.start();
 	}
@@ -157,8 +149,7 @@ public class CPUMonitorCanvas extends Canvas {
 	 * method that stop the thread to draw graphics
 	 * @throws JaswtException
 	 */
-	public void stop() throws JaswtException {
-		if (!automatic) throw new JaswtException("Automatic mode not setted");
+	public void stop() {
 		if (!running) return;
 		cpuMonitorThread.interrupt();
 	}
