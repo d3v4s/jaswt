@@ -15,8 +15,7 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
-import jaswt.exception.JaswtException;
-import jutilas.core.JutilasSys;
+import jutilas.utils.JutilasSys;
 
 /**
  * Class to create a CPU monitor with canvas
@@ -24,11 +23,11 @@ import jutilas.core.JutilasSys;
  *
  */
 public class CPUMonitorCanvas extends Canvas {
+	private CPUMonitorStyle CPUMonStyle = CPUMonitorStyle.CLASSIC;
 	private CPUMonitorCanvas cpuMonitorCanvas = this;
 	private BlockingQueue<Double> cpuAverageQueue;
 	private CpuMonitorThread cpuMonitorThread;
 	private boolean running = false;
-	private int styleCPUMon = 0;
 	private int timeout = 1500;
 	private CLabel infoLabel;
 
@@ -42,10 +41,9 @@ public class CPUMonitorCanvas extends Canvas {
 	/* ############################################################################# */
 
 	/**
-	 * Construct that set composite parent and style
+	 * Construct that set composite parent
 	 * 
 	 * @param parent composite
-	 * @param style  of canvas
 	 */
 	public CPUMonitorCanvas(Composite parent) {
 		super(parent, SWT.NONE);
@@ -66,10 +64,9 @@ public class CPUMonitorCanvas extends Canvas {
 	}
 
 	/**
-	 * Construct that set composite parent, style and the queue with cpu usage
+	 * Construct that set composite parent and the queue with cpu usage
 	 * 
 	 * @param parent        composite
-	 * @param style         of canvas
 	 * @param cpuAverageQueue
 	 */
 	public CPUMonitorCanvas(Composite parent, BlockingQueue<Double> cpuAverageQueue) {
@@ -83,8 +80,8 @@ public class CPUMonitorCanvas extends Canvas {
 	 * Construct that set composite parent, style and the queue with cpu usage
 	 * 
 	 * @param parent        composite
-	 * @param style         of canvas
 	 * @param cpuAverageQueue
+	 * @param style         of canvas
 	 */
 	public CPUMonitorCanvas(Composite parent, BlockingQueue<Double> cpuAverageQueue, int style) {
 		super(parent, style);
@@ -107,11 +104,26 @@ public class CPUMonitorCanvas extends Canvas {
 	public void setCpuAverageQueue(BlockingQueue<Double> cpuAverageQueue) {
 		this.cpuAverageQueue = cpuAverageQueue;
 	}
-	public int getStyleCPUMon() {
-		return styleCPUMon;
+	public CPUMonitorStyle getCPUMonStyle() {
+		return CPUMonStyle;
 	}
-	public void setStyleCPUMon(int styleCPUMon) {
-		this.styleCPUMon = styleCPUMon;
+	public void setCPUMonStyle(CPUMonitorStyle CPUMonStyle) {
+		this.CPUMonStyle = CPUMonStyle;
+	}
+	public void setCPUMonStyle(int CPUMonStyle) {
+		switch (CPUMonStyle) {
+		case 0:
+			this.CPUMonStyle = CPUMonitorStyle.CLASSIC;
+			break;
+		case 1:
+			this.CPUMonStyle = CPUMonitorStyle.REVERSE;
+			break;
+		case 2:
+			this.CPUMonStyle = CPUMonitorStyle.LINE;
+			break;
+		default:
+			break;
+		}
 	}
 	public int getTimeout() {
 		return timeout;
@@ -198,12 +210,12 @@ public class CPUMonitorCanvas extends Canvas {
 				avrgY = maxY - avrgY;
 				avrgColor = (avrg < 50d) ? se.display.getSystemColor(SWT.COLOR_GREEN) : (avrg < 80d) ? COLOR_ORANGE : se.display.getSystemColor(SWT.COLOR_RED);
 				/* switch for style of graphics */
-				switch (styleCPUMon) {
-					case 1:
+				switch (CPUMonStyle) {
+					case REVERSE:
 						se.gc.setForeground(avrgColor);
 						se.gc.drawLine(posX, 0, posX, avrgY);//maxY - avrgY);
 						break;
-					case 2:
+					case LINE:
 						iNext = (i == size - 1) ? i : i + 1;
 						avrgYNext = Double.valueOf(avrgList.get(iNext) * maxYPerc).intValue();
 						se.gc.setForeground(se.display.getSystemColor(SWT.COLOR_WHITE));
@@ -211,7 +223,7 @@ public class CPUMonitorCanvas extends Canvas {
 						se.gc.setForeground(avrgColor);
 						se.gc.drawPoint(posX, avrgY); //maxY - avrgY);
 						break;
-					case 0:
+					case CLASSIC:
 					default:
 						se.gc.setForeground(avrgColor);
 						se.gc.drawLine(posX, maxY, posX, avrgY);//maxY - avrgY);

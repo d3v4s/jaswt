@@ -1,5 +1,6 @@
 package jaswt.canvas;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Canvas;
@@ -28,6 +29,16 @@ public class ViewerColorCanvas extends Canvas {
 	/* ############################################################################# */
 
 	/**
+	 * construct that set a composite parent
+	 * @param parent composite
+	 */
+	public ViewerColorCanvas(Composite parent) {
+		super(parent, SWT.NONE);
+		setRedraw(true);
+		setBackground(getSwtColor());
+	}
+
+	/**
 	 * construct that set a composite parent and style
 	 * @param parent composite
 	 * @param style  of canvas
@@ -35,26 +46,44 @@ public class ViewerColorCanvas extends Canvas {
 	public ViewerColorCanvas(Composite parent, int style) {
 		super(parent, style);
 		setRedraw(true);
-		setBackground(getColorSet());
+		setBackground(getSwtColor());
 	}
 
 	/**
-	 * construct that set a composite parent, style and RGB
+	 * construct that set a composite parent and RGB
 	 * @param parent composite
-	 * @param style  of canvas
 	 * @param red    of RGB
 	 * @param green  of RGB
 	 * @param blue   of RGB
 	 * @throws ArgumentException
 	 */
-	public ViewerColorCanvas(Composite parent, int style, int red, int green, int blue) throws ArgumentException {
+	public ViewerColorCanvas(Composite parent, int red, int green, int blue) throws ArgumentException {
+		super(parent, SWT.NONE);
+		if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) throw new ArgumentException("Error!!! The number must be a value between 0 and 255");
+		setRedraw(true);
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+		setBackground(getSwtColor());
+	}
+
+	/**
+	 * construct that set a composite parent, style and RGB
+	 * @param parent composite
+	 * @param red    of RGB
+	 * @param green  of RGB
+	 * @param blue   of RGB
+	 * @param style  of canvas
+	 * @throws ArgumentException
+	 */
+	public ViewerColorCanvas(Composite parent, int red, int green, int blue, int style) throws ArgumentException {
 		super(parent, style);
 		if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) throw new ArgumentException("Error!!! The number must be a value between 0 and 255");
 		setRedraw(true);
 		this.red = red;
 		this.green = green;
 		this.blue = blue;
-		setBackground(getColorSet());
+		setBackground(getSwtColor());
 	}
 
 	/* ############################################################################# */
@@ -86,20 +115,38 @@ public class ViewerColorCanvas extends Canvas {
 		if (blue < 0 || blue > 255) throw new ArgumentException("Error!!! The number must be a value between 0 and 255");
 		this.blue = blue;
 	}
+	
 
 	/* ############################################################################# */
 	/* END GET AND SET */
 	/* ############################################################################# */
 
+	/* ############################################################################# */
+	/* START DRAW METHODS */
+	/* ############################################################################# */
+
 	/* override redraw */
 	@Override
 	public void redraw() {
-		setBackground(getColorSet());
+		setBackground(getSwtColor());
 		super.redraw();
 	}
 
-	/* get color set by rgb attribute */
-	private Color getColorSet() {
+	/* ############################################################################# */
+	/* END DRAW METHODS */
+	/* ############################################################################# */
+
+	/* ############################################################################# */
+	/* START PRIVATE METHODS */
+	/* ############################################################################# */
+
+	/* get swt color by rgb attribute */
+	private Color getSwtColor() {
 		return new Color(getShell().getDisplay(), new RGB(red, green, blue));
 	}
+
+	/* ############################################################################# */
+	/* END PRIVATE METHODS */
+	/* ############################################################################# */
+
 }

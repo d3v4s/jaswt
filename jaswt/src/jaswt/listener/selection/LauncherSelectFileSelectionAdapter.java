@@ -5,7 +5,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import jaswt.core.Jaswt;
+import jaswt.utils.Jaswt;
 
 /**
  * Class that extends SelectionAdapter for launch a window to select a file and set it in Text

@@ -4,8 +4,8 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 
-import jaswt.core.Jaswt;
-import jutilas.core.Jutilas;
+import jaswt.utils.Jaswt;
+import jutilas.utils.Jutilas;
 
 /**
  * Class that extends SelectionAdapter for launch a System File Explorer
