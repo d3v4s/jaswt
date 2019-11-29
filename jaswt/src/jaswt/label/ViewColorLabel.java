@@ -5,7 +5,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import jaswt.exception.ParameterException;
+import jaswt.exception.ArgumentException;
 
 public class ViewColorLabel extends Label {
 	private int red = 0;
@@ -37,11 +37,11 @@ public class ViewColorLabel extends Label {
 	 * @param red    of RGB
 	 * @param green  of RGB
 	 * @param blue   of RGB
-	 * @throws ParameterException
+	 * @throws ArgumentException
 	 */
-	public ViewColorLabel(Composite parent, int style, int red, int green, int blue) throws ParameterException {
+	public ViewColorLabel(Composite parent, int style, int red, int green, int blue) throws ArgumentException {
 		super(parent, style);
-		if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
+		if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) throw new ArgumentException("Error!!! The number must be a value between 0 and 255");
 		setRedraw(true);
 		this.red = red;
 		this.green = green;
@@ -60,22 +60,22 @@ public class ViewColorLabel extends Label {
 	public int getRed() {
 		return red;
 	}
-	public void setRed(int red) throws ParameterException {
-		if (red < 0 || red > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
+	public void setRed(int red) throws ArgumentException {
+		if (red < 0 || red > 255) throw new ArgumentException("Error!!! The number must be a value between 0 and 255");
 		this.red = red;
 	}
 	public int getGreen() {
 		return green;
 	}
-	public void setGreen(int green) throws ParameterException {
-		if (green < 0 || green > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
+	public void setGreen(int green) throws ArgumentException {
+		if (green < 0 || green > 255) throw new ArgumentException("Error!!! The number must be a value between 0 and 255");
 		this.green = green;
 	}
 	public int getBlue() {
 		return blue;
 	}
-	public void setBlue(int blue) throws ParameterException {
-		if (blue < 0 || blue > 255) throw new ParameterException("Error!!! The number must be a value between 0 and 255");
+	public void setBlue(int blue) throws ArgumentException {
+		if (blue < 0 || blue > 255) throw new ArgumentException("Error!!! The number must be a value between 0 and 255");
 		this.blue = blue;
 	}
 
