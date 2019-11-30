@@ -1,6 +1,6 @@
 package jaswt.listener.selection;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -13,15 +13,15 @@ import org.eclipse.swt.widgets.Widget;
  * @author Andrea Serra
  *
  */
-public class DisablerControlSelctionAdapter implements SelectionListener {
-	protected ArrayList<Control> controlList;
+public class DisablerControlsSelctionAdapter implements SelectionListener {
+	protected List<Control> controlList;
 
 	/* CONSTRUCTOR */
 	/**
 	 * constructor that set the ArrayList of Controls to be closed
 	 * @param controls list to be closed
 	 */
-	public DisablerControlSelctionAdapter(ArrayList<Control> controls) {
+	public DisablerControlsSelctionAdapter(List<Control> controls) {
 		super();
 		this.controlList = controls;
 	}
