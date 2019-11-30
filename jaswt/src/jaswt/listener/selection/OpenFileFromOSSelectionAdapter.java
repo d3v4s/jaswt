@@ -1,20 +1,23 @@
 package jaswt.listener.selection;
 
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
 
-import jaswt.core.Jaswt;
-import jutilas.core.Jutilas;
+import jaswt.utils.Jaswt;
+import jutilas.utils.Jutilas;
 
 /**
  * Class that extends SelectionAdapter for launch a System File Explorer
  * @author Andrea Serra
  *
  */
-public class OpenFileFromOSSelectionAdapter extends SelectionAdapter {
+public class OpenFileFromOSSelectionAdapter implements SelectionListener {
+	/* PRIVATE */
 	private Shell shellParent;
-	private String path;
+
+	/* PROTECTED */
+	protected String path;
 
 	/* ################################################################################# */
 	/* START CONSTRUCT */
@@ -30,35 +33,44 @@ public class OpenFileFromOSSelectionAdapter extends SelectionAdapter {
 		this.path = path;
 	}
 
-	/**
-	 * constructor that sets Shell parent
-	 * @param shellParent parent
-	 */
-	public OpenFileFromOSSelectionAdapter(Shell shellParent) {
-		this.shellParent = shellParent;
-	}
+//	/**
+//	 * constructor that sets Shell parent
+//	 * @param shellParent parent
+//	 */
+//	public OpenFileFromOSSelectionAdapter(Shell shellParent) {
+//		this.shellParent = shellParent;
+//	}
 
 	/* ################################################################################# */
 	/* END CONSTRUCT */
 	/* ################################################################################# */
 
-	/* ################################################################################# */
-	/* START GET SET */
-	/* ################################################################################# */
-
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	/* ################################################################################# */
-	/* END GET SET */
-	/* ################################################################################# */
+//	/* ################################################################################# */
+//	/* START GET SET */
+//	/* ################################################################################# */
+//
+//	public String getPath() {
+//		return path;
+//	}
+//	public void setPath(String path) {
+//		this.path = path;
+//	}
+//
+//	/* ################################################################################# */
+//	/* END GET SET */
+//	/* ################################################################################# */
 
 	@Override
 	public void widgetSelected(SelectionEvent se) {
+		openFile();
+	}
+
+	@Override
+	public void widgetDefaultSelected(SelectionEvent arg0) {
+		openFile();
+	}
+
+	private void openFile() {
 		try {
 			Jutilas.getInstance().openFileFromOS(path);
 		} catch (Exception e) {

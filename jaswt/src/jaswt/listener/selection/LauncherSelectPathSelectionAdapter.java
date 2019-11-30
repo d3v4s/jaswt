@@ -1,18 +1,18 @@
 package jaswt.listener.selection;
 
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import jaswt.core.Jaswt;
+import jaswt.utils.Jaswt;
 
 /**
  * Class that extends SelectionAdapter for launch a window to select a folder and set it in Text
  * @author Andrea Serra
  *
  */
-public class LauncherSelectPathSelectionAdapter extends SelectionAdapter {
+public class LauncherSelectPathSelectionAdapter implements SelectionListener {
 	private Shell shell;
 	private Text text;
 
@@ -30,6 +30,15 @@ public class LauncherSelectPathSelectionAdapter extends SelectionAdapter {
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
+		launchDirectoryDialog();
+	}
+
+	@Override
+	public void widgetDefaultSelected(SelectionEvent arg0) {
+		launchDirectoryDialog();
+	}
+
+	private void launchDirectoryDialog() {
 		String path = Jaswt.getInstance().launchDirectoryDialog(shell, text.getText());
 		if (!(path == null || path.isEmpty())) text.setText(path);
 	}

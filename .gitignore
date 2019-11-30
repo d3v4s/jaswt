@@ -1,4 +1,5 @@
-jaswt/bin/*
-jaswt/.settings/*
+/jaswt/bin/*
+/jaswt/.settings/*
+/jaswt/version
 LICENSE
 README.md

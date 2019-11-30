@@ -1,7 +1,7 @@
 package jaswt.listener.selection;
 
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Shell;
 
 /**
@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Shell;
  * @author Andrea Serra
  *
  */
-public class CloserShellSelectionAdpter extends SelectionAdapter {
+public class CloserShellSelectionAdpter implements SelectionListener {
 	private Shell shell;
 
 	/* CONSTRUCTOR */
@@ -24,6 +24,11 @@ public class CloserShellSelectionAdpter extends SelectionAdapter {
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
+		shell.dispose();
+	}
+
+	@Override
+	public void widgetDefaultSelected(SelectionEvent arg0) {
 		shell.dispose();
 	}
 
