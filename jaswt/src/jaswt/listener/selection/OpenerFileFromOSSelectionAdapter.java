@@ -12,7 +12,7 @@ import jutilas.utils.Jutilas;
  * @author Andrea Serra
  *
  */
-public class OpenFileFromOSSelectionAdapter implements SelectionListener {
+public class OpenerFileFromOSSelectionAdapter implements SelectionListener {
 	/* PRIVATE */
 	private Shell shellParent;
 
@@ -28,37 +28,14 @@ public class OpenFileFromOSSelectionAdapter implements SelectionListener {
 	 * @param shellParent parent
 	 * @param path to be open on file explorer
 	 */
-	public OpenFileFromOSSelectionAdapter(Shell shellParent, String path) {
+	public OpenerFileFromOSSelectionAdapter(Shell shellParent, String path) {
 		this.shellParent = shellParent;
 		this.path = path;
 	}
 
-//	/**
-//	 * constructor that sets Shell parent
-//	 * @param shellParent parent
-//	 */
-//	public OpenFileFromOSSelectionAdapter(Shell shellParent) {
-//		this.shellParent = shellParent;
-//	}
-
 	/* ################################################################################# */
 	/* END CONSTRUCT */
 	/* ################################################################################# */
-
-//	/* ################################################################################# */
-//	/* START GET SET */
-//	/* ################################################################################# */
-//
-//	public String getPath() {
-//		return path;
-//	}
-//	public void setPath(String path) {
-//		this.path = path;
-//	}
-//
-//	/* ################################################################################# */
-//	/* END GET SET */
-//	/* ################################################################################# */
 
 	@Override
 	public void widgetSelected(SelectionEvent se) {
