@@ -111,15 +111,15 @@ public class Jaswt {
 	 * @param height          of label
 	 * @param space           between two labels
 	 * @param compositeParent parent
-	 * @param labelStyle           label
+	 * @param labelStyle      label
 	 */
-	public Map<String, CLabel> createLabels(String[] textsLabel, int x, int y, int width, int height, int space, Composite compositeParent, String[] keyMapList, int labelStyle, CreateContentsStyle createContentsStyle) {
+	public Map<String, CLabel> createLabels(String[] textsLabel, int x, int y, int width, int height, int space, Composite compositeParent, String[] keyMapList, int labelStyle, CreateContentsDirection createContentsDirection) {
 		Map<String, CLabel> labelMap = new HashMap<String, CLabel>();
 		CLabel lbl = null;
 		int heightFont = height - 6;
 		SetterBoundsLabel setBoundsFunct = null;
 		/* preset to print vertical or horizontal */
-		switch (createContentsStyle) {
+		switch (createContentsDirection) {
 			case VERTICAL:
 				final int hs = height + space;
 				setBoundsFunct = (label, i) -> {
@@ -141,7 +141,7 @@ public class Jaswt {
 			lbl.getFont().getFontData()[0].setHeight(heightFont);
 			setBoundsFunct.set(lbl, i);
 			lbl.setText(textsLabel[i]);
-			labelMap.put(textsLabel[i], lbl);
+			labelMap.put(keyMapList[i], lbl);
 		}
 		return labelMap;
 	}
@@ -165,13 +165,13 @@ public class Jaswt {
 	 * @param mapSaveText     map where save the text inputs
 	 * @param disableTextList list of text inputs indexes to be disabled
 	 */
-	public Map<String, Text> createTexts(int x, int y, int[] width, int height, int space, Composite compositeParent, String[] keyMapList, int textStyle, CreateContentsStyle createContentsStyle) {
+	public Map<String, Text> createTexts(int x, int y, int[] width, int height, int space, Composite compositeParent, String[] keyMapList, int textStyle, CreateContentsDirection createContentsDirection) {
 		Map<String, Text> textMap = new HashMap<String, Text>();
 		Text txt;
 		int heightFont = height - 6;
 		SetterBoundsText setBoundsFunct = null;
 		/* preset to print vertical or horizontal */
-		switch (createContentsStyle) {
+		switch (createContentsDirection) {
 			case VERTICAL:
 				final int hs = height + space;
 				setBoundsFunct = (text, i) -> {
@@ -207,7 +207,7 @@ public class Jaswt {
 	/**
 	 * method that create button horizontally on the composite
 	 * 
-	 * @param namesList          of buttons
+	 * @param textsList          of buttons
 	 * @param x                  coordinate on the composite
 	 * @param y                  coordinate on the composite
 	 * @param width              of button
@@ -216,12 +216,12 @@ public class Jaswt {
 	 * @param compositeParent    parent
 	 * @param selectListenerList list of SelectionListener for buttons
 	 */
-	public Map<String, Button> createButtons(String[] namesList, int x, int y, int width, int height, int space, Composite compositeParent, SelectionListener[] selectListenerList, String[] keyMapList, CreateContentsStyle createContentsStyle) {
+	public Map<String, Button> createButtons(String[] textsList, int x, int y, int width, int height, int space, Composite compositeParent, SelectionListener[] selectListenerList, String[] keyMapList, CreateContentsDirection createContentsDirection) {
 		Map<String, Button> bttnMap = new HashMap<String, Button>();
 		Button bttn;
 		SetterBoundsButton setBoundsFunct = null;
 		/* preset to print vertical or horizontal */
-		switch (createContentsStyle) {
+		switch (createContentsDirection) {
 			case VERTICAL:
 				final int hs = height + space;
 				setBoundsFunct = (button, i) -> {
@@ -238,13 +238,13 @@ public class Jaswt {
 				return null;
 		}
 		/* ciclo per button */
-		for (int i = 0, length = namesList.length; i < length; i++) {
+		for (int i = 0, length = textsList.length; i < length; i++) {
 			bttn = new Button(compositeParent, SWT.PUSH);
 			setBoundsFunct.set(bttn, i);
 			if (selectListenerList[i] != null) bttn.addSelectionListener(selectListenerList[i]);
-			if (namesList[i] != null) bttn.setText(namesList[i]);
+			if (textsList[i] != null) bttn.setText(textsList[i]);
 			bttn.setCursor(new Cursor(compositeParent.getDisplay(), SWT.CURSOR_HAND));
-			bttnMap.put(namesList[i], bttn);
+			bttnMap.put(keyMapList[i], bttn);
 		}
 		return bttnMap;
 	}

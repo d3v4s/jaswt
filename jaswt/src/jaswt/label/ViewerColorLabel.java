@@ -1,5 +1,6 @@
 package jaswt.label;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
@@ -7,12 +8,12 @@ import org.eclipse.swt.widgets.Label;
 
 import jaswt.exception.ArgumentException;
 
-public class ViewColorLabel extends Label {
+public class ViewerColorLabel extends Label {
 	private int red = 0;
 	private int green = 0;
 	private int blue = 0;
 
-	/* override for checksublclass bypass error */
+	/* override for bypass checksublclass error */
 	@Override
 	protected void checkSubclass() {
 	}
@@ -26,7 +27,16 @@ public class ViewColorLabel extends Label {
 	 * @param parent composite
 	 * @param style  of label
 	 */
-	public ViewColorLabel(Composite parent, int style) {
+	public ViewerColorLabel(Composite parent) {
+		super(parent, SWT.NONE);
+	}
+
+	/**
+	 * construct that set a composite parent and style
+	 * @param parent composite
+	 * @param style  of label
+	 */
+	public ViewerColorLabel(Composite parent, int style) {
 		super(parent, style);
 	}
 
@@ -39,14 +49,33 @@ public class ViewColorLabel extends Label {
 	 * @param blue   of RGB
 	 * @throws ArgumentException
 	 */
-	public ViewColorLabel(Composite parent, int style, int red, int green, int blue) throws ArgumentException {
+	public ViewerColorLabel(Composite parent, int red, int green, int blue) throws ArgumentException {
+		super(parent, SWT.NONE);
+		if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) throw new ArgumentException("Error!!! The number must be a value between 0 and 255");
+		setRedraw(true);
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+		setBackground(getSwtColor());
+	}
+
+	/**
+	 * construct that set a composite parent, style and RGB
+	 * @param parent composite
+	 * @param style  of label
+	 * @param red    of RGB
+	 * @param green  of RGB
+	 * @param blue   of RGB
+	 * @throws ArgumentException
+	 */
+	public ViewerColorLabel(Composite parent, int style, int red, int green, int blue) throws ArgumentException {
 		super(parent, style);
 		if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) throw new ArgumentException("Error!!! The number must be a value between 0 and 255");
 		setRedraw(true);
 		this.red = red;
 		this.green = green;
 		this.blue = blue;
-		setBackground(getColorSet());
+		setBackground(getSwtColor());
 	}
 
 	/* ############################################################################# */
@@ -83,15 +112,23 @@ public class ViewColorLabel extends Label {
 	/* END GET AND SET */
 	/* ############################################################################# */
 
+	/* ############################################################################# */
+	/* START DRAW METHODS */
+	/* ############################################################################# */
+
 	/* override redraw */
 	@Override
 	public void redraw() {
-		setBackground(getColorSet());
+		setBackground(getSwtColor());
 		super.redraw();
 	}
 
+	/* ############################################################################# */
+	/* START DRAW METHODS */
+	/* ############################################################################# */
+
 	/* get color set by rgb attribute */
-	private Color getColorSet() {
+	private Color getSwtColor() {
 		return new Color(getShell().getDisplay(), new RGB(red, green, blue));
 	}
 }
