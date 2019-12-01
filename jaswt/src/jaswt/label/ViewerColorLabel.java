@@ -8,6 +8,12 @@ import org.eclipse.swt.widgets.Label;
 
 import jaswt.exception.ArgumentException;
 
+/**
+ * Class for view a color on label
+ * 
+ * @author Andrea Serra
+ *
+ */
 public class ViewerColorLabel extends Label {
 	private int red = 0;
 	private int green = 0;
